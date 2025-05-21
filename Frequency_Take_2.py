@@ -31,19 +31,20 @@ dict = {'Monday':
     'Sunday':
     {'skies' : ['As Blue As Can Be'],
     'weather' : ['sunny'],
-    'temperature' : ['43 degrees']
+    'temperature' : ['46 degrees']
     },
 }
-def count_dialogue_frequency(dialogue_dict, target_dialogue):
-    frequency = 0
-    for dialogue in dialogue_dict.values():
-        if target_dialogue.lower() in dialogue.lower():
-            frequency += 1
-    
-    return frequency
-dialogue_dict = fetch_dialogue_dict()
-if dialogue_dict:
-    target_dialogue = input("Enter the dialogue that needs to be found :")
-    frequency = count_dialogue_frequency(dialogue_dict, target_dialogue)
-    print(f"The dialogue '{target_dialogue}' appears {frequency} times in the dictionary.")
-print("\nThe dialogue {target_dialogue} appears {frequency} times in the dictionary.")
+def text_frequency(whole_weather, text_needed):
+    text_found = 0
+    for day in whole_weather:
+        day_info = whole_weather[day]
+        for category_name in day_info:
+            description = day_info[category_name]
+            for description_text in description:
+                if description_text == text_needed:
+                    text_found = text_found + 1
+
+    return text_found
+user = input("What text's frequency do you want to count in the weather report? ")
+frequency_count = text_frequency(dict, user)
+print(f"The text '{user}' was found {frequency_count} time(s).")
